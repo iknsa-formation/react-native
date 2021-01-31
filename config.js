@@ -1,7 +1,7 @@
 const endpoint = {
-  products: "https://gorest.co.in/public-api/products"
+  products: "https://gorest.co.in/public-api/products",
+  productDetails: "/1",
 }
-
 const config = {
   endpoint
 }

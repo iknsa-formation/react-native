@@ -5,8 +5,11 @@ const api = create({ baseURL: config.endpoint.products });
 
 const getProductsApi = () => api.get('/');
 
+const getProduct = () => api.get(config.endpoint.productDetails);
+
 const ProductsApi = {
-  getProductsApi
+  getProductsApi,
+  getProduct
 }
 
 export default ProductsApi;
