@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import ProductsApi from '../api/products';
-import ProductSummary from './ProductSummary';
+import ProductSummary from '../components/ProductSummary';
 
-const ProductsList = () => {
+const ProductsListScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
-
   useEffect(() => {
     loadProducts();
   }, []);
@@ -20,7 +19,9 @@ const ProductsList = () => {
     <FlatList
       data={products}
       keyExtractor={product => product.id.toString()}
-      renderItem={({ item }) => <ProductSummary product={item} />}
+      renderItem={({ item }) =>
+        <ProductSummary product={item} navigation={navigation} />
+      }
       ItemSeparatorComponent={() => <View style={styles.seperator} />}
     />
   );
@@ -30,4 +31,4 @@ const styles = StyleSheet.create({
   seperator: { marginTop: 5, marginBottom: 5, borderTopWidth: 1, borderColor: "#ccc" }
 });
 
-export default ProductsList;
+export default ProductsListScreen;

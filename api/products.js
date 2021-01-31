@@ -5,7 +5,7 @@ const api = create({ baseURL: config.endpoint.products });
 
 const getProductsApi = () => api.get('/');
 
-const getProduct = () => api.get(config.endpoint.productDetails);
+const getProduct = productId => api.get('/' + productId);
 
 const ProductsApi = {
   getProductsApi,

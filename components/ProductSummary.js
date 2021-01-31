@@ -1,21 +1,27 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-const ProductSummary = ({ product }) => {
+const ProductSummary = ({ product, navigation }) => {
   product.image = product.image.replace(/250/g, "50") + "?productId=" + product.id;
 
+  handlePress = product => {
+    navigation.navigate('Product details', { productId: product.id });
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={{ uri: product.image, width: 50, height: 50 }} />
-      </View>
-      <View style={{ flex: 1 }}>
-        <Text numberOfLines={1} style={styles.name}>{product.name}</Text>
+    <TouchableOpacity onPress={() => handlePress(product)}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={{ uri: product.image, width: 50, height: 50 }} />
+        </View>
         <View style={{ flex: 1 }}>
-          <Text numberOfLines={1} style={styles.price}>{product.price} €</Text>
+          <Text numberOfLines={1} style={styles.name}>{product.name}</Text>
+          <View style={{ flex: 1 }}>
+            <Text numberOfLines={1} style={styles.price}>{product.price} €</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

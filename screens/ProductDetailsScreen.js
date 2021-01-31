@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import ProductsApi from '../api/products';
 
-const ProductDetails = () => {
+const ProductDetailsScreen = ({ route }) => {
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -10,9 +10,9 @@ const ProductDetails = () => {
   }, []);
 
   const loadProduct = async () => {
-    const response = await ProductsApi.getProduct();
+    const response = await ProductsApi.getProduct(route.params.productId);
 
-    response.data.data.image += '?id=' + response.data.data.id;
+    response.data.data.image += '?productId=' + response.data.data.id;
 
     setProduct(response.data.data);
   }
@@ -20,7 +20,7 @@ const ProductDetails = () => {
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
-        <Image source={{ uri: product.image, height: Dimensions.get('window').height * 0.6, width: '100%', resizeMode: 'contain' }} />
+        <Image source={{ uri: product.image, height: Dimensions.get('window').height * 0.5, width: '100%', resizeMode: 'contain' }} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.name}>{product.name}</Text>
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ProductDetails;
+export default ProductDetailsScreen;
