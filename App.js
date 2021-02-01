@@ -5,13 +5,15 @@ import ProductDetailsScreen from './screens/ProductDetailsScreen';
 import ProductsListScreen from './screens/ProductsListScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import NetStatusBanner from './components/NetStatusBanner';
 
 const Stack = createStackNavigator();
 
-export default function App() {
 
+export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      <NetStatusBanner />
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Products" component={ProductsListScreen} />
