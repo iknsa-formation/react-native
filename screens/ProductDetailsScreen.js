@@ -10,11 +10,15 @@ const ProductDetailsScreen = ({ route }) => {
   }, []);
 
   const loadProduct = async () => {
-    const response = await ProductsApi.getProduct(route.params.productId);
+    try {
+      const response = await ProductsApi.getProduct(route.params.productId);
 
-    response.data.data.image += '?productId=' + response.data.data.id;
+      response.data.data.image += '?productId=' + response.data.data.id;
 
-    setProduct(response.data.data);
+      setProduct(response.data.data);
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
