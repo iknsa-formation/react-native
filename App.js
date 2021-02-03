@@ -6,7 +6,6 @@ import ProductsListScreen from './screens/ProductsListScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import NetStatusBanner from './components/NetStatusBanner';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
