@@ -1,38 +1,26 @@
 // ./App.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, Platform, StatusBar } from 'react-native';
-import ProductDetailsScreen from './screens/ProductDetailsScreen';
-import ProductsListScreen from './screens/ProductsListScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NetStatusBanner from './components/NetStatusBanner';
-import WelcomeScreen from './screens/WelcomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-
-const Stack = createStackNavigator();
-const ProductsNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Products" component={ProductsListScreen} />
-    <Stack.Screen name="Product details" component={ProductDetailsScreen} />
-  </Stack.Navigator>
-);
-
-const Tab = createBottomTabNavigator();
-const TabNavigator = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Auth" component={WelcomeScreen} />
-    <Tab.Screen name="Products" component={ProductsNavigator} />
-    <Tab.Screen name="Profile" component={ProfileScreen} />
-  </Tab.Navigator>
-);
+import TabNavigator from './navigation/TabNavigator';
+import AuthNavigator from './navigation/AuthNavigator';
+import security from './utility/security'
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => setIsAuthenticated(getIsAuthenticated()), []);
+
+  const getIsAuthenticated = async () => {
+    return await security.isAuthenticated();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <NetStatusBanner />
       <NavigationContainer>
-        <TabNavigator />
+        {isAuthenticated ? <TabNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </SafeAreaView>
   );

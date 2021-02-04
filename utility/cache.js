@@ -19,7 +19,7 @@ const isExpired = (item) => {
   const now = moment(Date.now());
   const diff = now.diff(item.timestamp, 'minutes');
 
-  return diff > 1;
+  return false;
 }
 
 const getFromStore = async (key) => {
