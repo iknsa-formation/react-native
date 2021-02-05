@@ -6,15 +6,27 @@ import NetStatusBanner from './components/NetStatusBanner';
 import TabNavigator from './navigation/TabNavigator';
 import AuthNavigator from './navigation/AuthNavigator';
 import security from './utility/security'
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isReady, setIsReady] = useState(false)
 
-  useEffect(() => setIsAuthenticated(getIsAuthenticated()), []);
+  useEffect(() => { getIsAuthenticated() }, []);
 
   const getIsAuthenticated = async () => {
-    return await security.isAuthenticated();
+    const data = await security.isAuthenticated();
+    setIsAuthenticated(data);
+    return { isAuthenticated: true }
   };
+
+  if (!isReady) {
+    return <AppLoading
+      startAsync={getIsAuthenticated}
+      onFinish={() => setIsReady(true)}
+      onError={console.error}
+    />
+  }
 
   return (
     <SafeAreaView style={styles.container}>

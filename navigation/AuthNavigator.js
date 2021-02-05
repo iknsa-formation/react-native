@@ -10,14 +10,7 @@ import DashboardScreen from '../screens/DashboardScreen';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => setIsAuthenticated(getIsAuthenticated()), []);
-
-  const getIsAuthenticated = async () => {
-    return await security.isAuthenticated();
-  };
+  const isAuthenticated = true;
 
   return (
     <Stack.Navigator>
